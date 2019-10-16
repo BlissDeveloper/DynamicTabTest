@@ -48,7 +48,7 @@ public class TabFragment extends Fragment {
 
         tabItemsRef = FirebaseFirestore.getInstance().collection("Items");
         recyclerViewTabItem = mView.findViewById(R.id.recyclerViewItems);
-        linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+        linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
 
         tabName = getArguments().getString("name");
 
@@ -56,6 +56,8 @@ public class TabFragment extends Fragment {
         //textViewName.setText(tabName);
 
         recyclerViewTabItem.setLayoutManager(linearLayoutManager);
+
+        loadItems();
 
         return mView;
     }
@@ -68,7 +70,7 @@ public class TabFragment extends Fragment {
         final FirestoreRecyclerAdapter<TabItem, TabItemViewHolder> firestoreRecyclerAdapter = new FirestoreRecyclerAdapter<TabItem, TabItemViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull TabItemViewHolder holder, int position, @NonNull TabItem model) {
-
+                holder.setBody(model.getBody());
             }
 
             @NonNull
@@ -79,7 +81,7 @@ public class TabFragment extends Fragment {
             }
         };
         recyclerViewTabItem.setAdapter(firestoreRecyclerAdapter);
-
+        firestoreRecyclerAdapter.startListening();
     }
 
 }

@@ -14,7 +14,7 @@ public class TabItemViewHolder extends RecyclerView.ViewHolder {
         textViewTabName = itemView.findViewById(R.id.textViewTabItemName);
     }
 
-    public void setName(String name) {
-        textViewTabName.setText(name);
+    public void setBody(String body) {
+        textViewTabName.setText(body);
     }
 }
